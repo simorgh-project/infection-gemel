@@ -15,6 +15,7 @@ import logging
 import threading
 import time
 import json
+import sys
 from docopt import docopt
 
 from scapy.all import *
@@ -81,13 +82,16 @@ def _sniff(filter_str, callback):
 
 def _writer_thread(interval, ctx):
 
+    serve_dir = os.environ.get("SERVE_DIR", os.path.dirname(__file__))
+    out_path = os.path.join(serve_dir, "attack-stats.json")
+
     while not EXIT_SIGNAL:
 
         time.sleep(interval)
 
         logger.info("writing stats to file")
 
-        with open("attack-stats.json", "w") as f, ctx.ack_lock, ctx.syn_lock:
+        with open(out_path, "w") as f, ctx.ack_lock, ctx.syn_lock:
             f.write(json.dumps({
                 "ratio": (ctx.ack_count / ctx.syn_count) \
                         if ctx.syn_count != 0 else 0,
