@@ -16,7 +16,8 @@ dst_ip="$1"
 
 #mkdir -p $DIR/$SERVE_DIR
 
-hping3 -1 --fast --count 50 -d 500 "$dst_ip"
+=======
+hping3 -1 --fast --count 50 -d 500 -p 80 "$dst_ip"
 
 echo " ICMP" 
 #sleep 1
